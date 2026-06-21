@@ -18,16 +18,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; padding: 24px; }
         h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
-
         .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; background: white; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 20px; }
         .header h1 { font-size: 1.8em; font-weight: 700; }
-        .header h1 span { color: var(--orange); }
+        .header h1 span {
+            color: var(--orange);
+            animation: rainbow-cycle 10s linear infinite;
+        }
+        @keyframes rainbow-cycle {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
         .header .subtitle { font-size: 0.95em; color: var(--ink-soft); }
         .logout-link { font-size: 0.85em; color: var(--ink-soft); text-decoration: none; border: 1px solid var(--line); padding: 8px 16px; border-radius: 999px; }
         .logout-link:hover { border-color: var(--orange); color: var(--orange); }
-
         .container { display: flex; gap: 20px; align-items: flex-start; }
-
         .leaderboard-panel { width: 320px; flex-shrink: 0; background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
         .leaderboard-panel h2 { font-size: 1.15em; margin-bottom: 16px; }
         .leaderboard-item { display: flex; align-items: center; gap: 14px; padding: 12px 10px; border-bottom: 1px solid var(--line); }
@@ -36,14 +40,11 @@
         .rank-1 { color: var(--orange); } .rank-2 { color: var(--ink); } .rank-3 { color: var(--ink-soft); }
         .player-name { flex: 1; font-weight: 500; }
         .player-points { font-weight: 700; color: var(--orange); font-size: 0.95em; }
-
         .game-panel { flex: 1; background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; min-height: 560px; }
         .game-title-display { font-size: 1.9em; font-weight: 600; margin-bottom: 6px; }
         .game-description-display { color: var(--ink-soft); margin-bottom: 24px; line-height: 1.6; }
-
         .round-pill { display: inline-block; background: var(--yellow-soft); color: #8a6400; font-weight: 600; font-size: 0.9em; padding: 6px 16px; border-radius: 999px; margin-bottom: 20px; }
         .champion-banner { background: var(--yellow-soft); color: #8a6400; border-radius: 14px; padding: 22px; text-align: center; font-size: 1.3em; font-weight: 600; margin-bottom: 20px; }
-
         .rounds-wrap { display: flex; flex-direction: column; gap: 22px; }
         .round-block .round-block-title { font-size: 0.85em; font-weight: 600; color: var(--ink-soft); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
         .brackets-container { display: flex; flex-direction: column; gap: 10px; }
@@ -54,21 +55,17 @@
         .vs-text { font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--ink-soft); font-size: 0.9em; }
         .match-winner-tag { margin-top: 8px; text-align: center; font-size: 0.85em; color: #1a7a40; font-weight: 600; }
         .bye-tag { font-size: 0.8em; color: var(--ink-soft); text-align: center; margin-top: 6px; }
-
         .question-display { background: #FAFAF8; border: 1px solid var(--line); border-radius: 14px; padding: 28px; margin-bottom: 20px; text-align: center; font-size: 1.4em; font-weight: 500; }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .option-box { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 20px; font-size: 1.1em; transition: all 0.2s; }
         .option-box.is-correct { border-color: var(--green); background: var(--green-soft); font-weight: 700; }
         .option-letter { color: var(--orange); font-weight: 700; }
-
         .buzzed-indicator { margin-top: 22px; background: var(--yellow-soft); color: #8a6400; border-radius: 12px; padding: 16px; text-align: center; font-weight: 600; }
         .vs-players { margin: 18px 0; text-align: center; font-size: 1.2em; }
         .vs-players .name { color: var(--orange); font-weight: 600; }
-
         .impostor-info-display { background: #FAFAF8; border: 1px solid var(--line); border-radius: 14px; padding: 28px; text-align: center; }
         .impostor-info-display h3 { font-size: 1.3em; margin-bottom: 10px; }
         .impostor-info-display strong { color: var(--orange); }
-
         .waiting-message { text-align: center; padding: 100px 20px; color: var(--ink-soft); }
         .waiting-message .icon { font-size: 3em; margin-bottom: 16px; }
         .waiting-message h2 { font-weight: 500; color: var(--ink); margin-bottom: 6px; }
@@ -82,7 +79,6 @@
     </div>
     <a href="/logout" class="logout-link">Cerrar sesión</a>
 </div>
-
 <div class="container">
     <div class="leaderboard-panel" id="leaderboardPanel">
         <h2>Top 10</h2>
@@ -94,17 +90,14 @@
             <div class="player-points" th:text="${user.points} + ' pts'">0 pts</div>
         </div>
     </div>
-
     <div class="game-panel" id="gamePanel">
         <div th:if="${gamePayload.gameId != null}">
             <div class="game-title-display" th:text="${gamePayload.gameName}">Juego</div>
-
             <!-- BASIC / GUESS_CHARACTER -->
             <div th:if="${gamePayload.gameType == 'BASIC' || gamePayload.gameType == 'GUESS_CHARACTER'}">
                 <div class="game-description-display" th:text="${gamePayload.description}">Descripción</div>
                 <div style="text-align:center; font-size:1.2em; color: var(--ink-soft);">En juego ahora</div>
             </div>
-
             <!-- JENGA: bracket agrupado por ronda -->
             <div th:if="${gamePayload.gameType == 'JENGA_TOURNAMENT'}">
                 <div th:if="${gamePayload.state.tournamentFinished}" class="champion-banner">
@@ -113,7 +106,6 @@
                 <div th:unless="${gamePayload.state.tournamentFinished}" class="round-pill">
                     Ronda <span th:text="${gamePayload.state.round}">1</span> en curso
                 </div>
-
                 <div class="rounds-wrap">
                     <!-- Agrupamos manualmente: como son pocas rondas, mostramos todas las existentes -->
                     <div th:with="maxRound=${gamePayload.state.round}">
@@ -140,7 +132,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- TRIVIA -->
             <div th:if="${gamePayload.gameType == 'TRIVIA'}">
                 <div th:if="${gamePayload.state.player1Name != null}" class="vs-players">
@@ -148,7 +139,6 @@
                     contra
                     <span class="name" th:text="${gamePayload.state.player2Name}">P2</span>
                 </div>
-
                 <div th:if="${gamePayload.question != null}">
                     <div class="question-display" th:text="${gamePayload.question.text}">Pregunta</div>
                     <div class="options-grid">
@@ -173,7 +163,6 @@
                     Esperando la siguiente pregunta...
                 </div>
             </div>
-
             <!-- IMPOSTOR -->
             <div th:if="${gamePayload.gameType == 'IMPOSTOR'}">
                 <div class="impostor-info-display">
@@ -182,7 +171,6 @@
                 </div>
             </div>
         </div>
-
         <div th:unless="${gamePayload.gameId != null}" class="waiting-message">
             <div class="icon">🎈</div>
             <h2>Esperando inicio de juego</h2>
@@ -190,13 +178,11 @@
         </div>
     </div>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
     let stompClient = null;
     let reconnectTimer = null;
-
     function refreshGamePanel() {
         fetch(window.location.pathname)
             .then(r => r.text())
@@ -206,7 +192,6 @@
                 if (newPanel) document.getElementById('gamePanel').innerHTML = newPanel.innerHTML;
             });
     }
-
     function updateLeaderboard(data) {
         const panel = document.getElementById('leaderboardPanel');
         let html = '<h2>Top 10</h2>';
@@ -221,7 +206,6 @@
         });
         panel.innerHTML = html;
     }
-
     function connect() {
         const socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -238,12 +222,10 @@
             scheduleReconnect();
         });
     }
-
     function scheduleReconnect() {
         if (reconnectTimer) return;
         reconnectTimer = setTimeout(() => { reconnectTimer = null; connect(); }, 4000);
     }
-
     connect();
 </script>
 </body>

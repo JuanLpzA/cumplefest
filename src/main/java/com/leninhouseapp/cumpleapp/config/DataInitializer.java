@@ -38,7 +38,7 @@ public class DataInitializer implements CommandLineRunner {
 
         userRepo.saveAll(List.of(
                 User.builder().username("diego").password(encoder.encode("123456")).role(User.Role.ADMIN).displayName("Diego").active(true).points(0).build(),
-                User.builder().username("kitsunelenin").password(encoder.encode("123456")).role(User.Role.PLAYER).displayName("KitsuneLenin").active(true).points(0).build(),
+                User.builder().username("lenin").password(encoder.encode("123456")).role(User.Role.PLAYER).displayName("Lenin").active(true).points(0).build(),
                 User.builder().username("angelica").password(encoder.encode("123456")).role(User.Role.PLAYER).displayName("Angélica").active(true).points(0).build(),
                 User.builder().username("kiara").password(encoder.encode("123456")).role(User.Role.PLAYER).displayName("Kiara").active(true).points(0).build(),
                 User.builder().username("johan").password(encoder.encode("123456")).role(User.Role.PLAYER).displayName("Johan").active(true).points(0).build(),

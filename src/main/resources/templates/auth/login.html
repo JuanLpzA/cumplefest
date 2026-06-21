@@ -1,154 +1,149 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Cumple Lenin House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --orange: #FF6B35; --orange-soft: #FFE4D6;
+            --green: #2ECC71; --green-soft: #DFF8E8;
+            --yellow: #FFC93C; --yellow-soft: #FFF3D6;
+            --ink: #2B2B2B; --ink-soft: #6B6B6B;
+            --paper: #FEFEFB; --line: #ECE8E1;
+            --radius: 16px;
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px;
         }
-
-        .login-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
+        h1 { font-family: 'Fredoka', sans-serif; }
+        .login-card {
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 380px;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 36px 32px;
         }
-
         .logo {
-            text-align: center;
-            font-size: 3em;
-            margin-bottom: 10px;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--orange-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            margin: 0 auto 18px;
         }
-
         h1 {
             text-align: center;
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.8em;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
-
+        h1 span { color: var(--orange); }
         .subtitle {
             text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+            color: var(--ink-soft);
             font-size: 0.9em;
+            margin-bottom: 28px;
         }
-
-        .form-group {
+        .message {
+            border-radius: 10px;
+            padding: 10px 14px;
             margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
+            text-align: center;
+            font-size: 0.88em;
             font-weight: 500;
         }
-
+        .error-message { background: #FDECEC; color: #C0392B; }
+        .success-message { background: var(--green-soft); color: #1a7a40; }
+        .form-group { margin-bottom: 16px; }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--ink-soft);
+        }
         input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
             border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            background: var(--paper);
+            transition: border-color 0.2s;
         }
-
         input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--orange);
         }
-
         button {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-top: 8px;
+            padding: 13px;
+            background: var(--orange);
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 1em;
             font-weight: 600;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: opacity 0.2s;
         }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .error-message {
-            background: #fee;
-            color: #c33;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        button:hover { opacity: 0.9; }
+        button:active { opacity: 0.8; }
+        .footer-note {
             text-align: center;
-            font-size: 0.9em;
+            margin-top: 24px;
+            color: var(--ink-soft);
+            font-size: 0.78em;
         }
-
-        .success-message {
-            background: #efe;
-            color: #3c3;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 0.9em;
+        @media (max-width: 420px) {
+            .login-card { padding: 28px 22px; }
         }
     </style>
 </head>
 <body>
-<div class="login-container">
+<div class="login-card">
     <div class="logo">🎂</div>
-    <h1>Cumple en Lenin House</h1>
+    <h1>Cumple en <span>Lenin House</span></h1>
     <p class="subtitle">Sistema de Juegos</p>
 
-    <div th:if="${param.error}" class="error-message">
+    <div th:if="${param.error}" class="message error-message">
         Usuario o contraseña incorrectos
     </div>
-
-    <div th:if="${param.logout}" class="success-message">
+    <div th:if="${param.logout}" class="message success-message">
         Has cerrado sesión correctamente
     </div>
 
     <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required>
+            <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" required autocomplete="username">
         </div>
-
         <div class="form-group">
             <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
         </div>
-
-        <button type="submit">🎮 Ingresar</button>
+        <button type="submit">Ingresar</button>
     </form>
 
-    <p style="text-align: center; margin-top: 20px; color: #999; font-size: 0.8em;">
-        Solo para invitados • Lenin House 2024
-    </p>
+    <p class="footer-note">Hola · App hecha a base de pura ia 2026</p>
 </div>
 </body>
 </html>
