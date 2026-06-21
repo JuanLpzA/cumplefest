@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Trivia - Lenin House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #FF6B35; --green: #2ECC71; --green-soft: #DFF8E8;
+            --yellow-soft: #FFF3D6; --red: #E74C3C; --red-soft: #FBE2DF;
+            --ink: #2B2B2B; --ink-soft: #6B6B6B;
+            --paper: #FEFEFB; --line: #ECE8E1; --radius: 14px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; padding: 20px; }
+        h1, h2 { font-family: 'Fredoka', sans-serif; }
+        .header { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 1.4em; }
+        .btn { padding: 9px 16px; border: 1px solid var(--line); border-radius: 10px; font-weight: 500; font-size: 0.88em; cursor: pointer; background: white; color: var(--ink); }
+        .btn-success { background: var(--green); border-color: var(--green); color: white; font-weight: 600; }
+        .btn-danger { background: var(--red-soft); border-color: var(--red); color: #a8281b; }
+        .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin-bottom: 16px; }
+        .card h2 { font-size: 1.05em; margin-bottom: 16px; }
+        .alert { padding: 13px 16px; border-radius: 10px; margin-bottom: 16px; background: var(--green-soft); color: #1a7a40; font-size: 0.92em; }
+        .question-item { background: #FAFAF8; padding: 14px; margin: 8px 0; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .correct-badge { background: var(--green-soft); color: #1a7a40; padding: 3px 10px; border-radius: 999px; font-size: 0.78em; font-weight: 600; }
+        .used-tag { color: #8a6400; font-size: 0.78em; margin-left: 8px; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85em; color: var(--ink-soft); }
+        .form-group input, .form-group select {
+            width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
+            background: white; color: var(--ink); font-size: 0.92em; font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Gestionar preguntas de trivia</h1>
+    <button class="btn" onclick="window.location.href='/admin'">Volver</button>
+</div>
+
+<div th:if="${msg}" class="alert" th:text="${msg}">Mensaje</div>
+
+<div class="card">
+    <h2>Agregar nueva pregunta</h2>
+    <form th:action="@{/admin/trivia/add}" method="post">
+        <div class="form-group"><label>Pregunta</label><input type="text" name="text" required></div>
+        <div class="form-group"><label>Opción A</label><input type="text" name="optionA" required></div>
+        <div class="form-group"><label>Opción B</label><input type="text" name="optionB" required></div>
+        <div class="form-group"><label>Opción C</label><input type="text" name="optionC" required></div>
+        <div class="form-group"><label>Opción D</label><input type="text" name="optionD" required></div>
+        <div class="form-group">
+            <label>Respuesta correcta</label>
+            <select name="correctAnswer" required>
+                <option value="A">A</option><option value="B">B</option>
+                <option value="C">C</option><option value="D">D</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success" style="width:100%;">Guardar pregunta</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>Preguntas existentes</h2>
+    <div th:each="question : ${questions}" class="question-item">
+        <div style="flex:1;">
+            <div th:text="${question.text}">Pregunta</div>
+            <div style="font-size: 0.8em; color: var(--ink-soft); margin-top: 5px;">
+                A: <span th:text="${question.optionA}">A</span> ·
+                B: <span th:text="${question.optionB}">B</span> ·
+                C: <span th:text="${question.optionC}">C</span> ·
+                D: <span th:text="${question.optionD}">D</span>
+            </div>
+            <div style="margin-top: 6px;">
+                <span class="correct-badge" th:text="'Correcta: ' + ${question.correctAnswer}">Correcta: A</span>
+                <span th:if="${question.used}" class="used-tag">Usada</span>
+            </div>
+        </div>
+        <form th:action="@{/admin/trivia/delete/{id}(id=${question.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

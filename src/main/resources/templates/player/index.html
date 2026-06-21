@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title th:text="${user.displayName} + ' - Lenin House'">Jugador</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #FF6B35; --orange-soft: #FFE4D6;
+            --green: #2ECC71; --green-soft: #DFF8E8;
+            --yellow: #FFC93C; --yellow-soft: #FFF3D6;
+            --ink: #2B2B2B; --ink-soft: #6B6B6B;
+            --paper: #FEFEFB; --line: #ECE8E1;
+            --radius: 16px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; padding: 14px; }
+        h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+
+        .header { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .user-info { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 42px; height: 42px; background: var(--orange-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em; }
+        .user-name { font-weight: 600; font-size: 1.05em; }
+        .user-role { font-size: 0.8em; color: var(--ink-soft); }
+        .points-badge { text-align: right; }
+        .points-number { font-family: 'Fredoka', sans-serif; font-size: 1.5em; font-weight: 700; color: var(--orange); line-height: 1; }
+        .points-label { font-size: 0.75em; color: var(--ink-soft); }
+
+        .button-row { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; }
+        .action-btn { flex: 1; min-width: 84px; background: white; border: 1px solid var(--line); color: var(--ink); padding: 12px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; cursor: pointer; text-align: center; white-space: nowrap; }
+        .action-btn:active { transform: scale(0.97); }
+        .action-btn.primary { background: var(--orange-soft); border-color: var(--orange); color: #c2491b; font-weight: 600; }
+        .action-btn.admin { background: var(--yellow-soft); border-color: var(--yellow); color: #8a6400; }
+
+        .game-area { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; min-height: 280px; }
+        .game-title { font-size: 1.25em; font-weight: 600; margin-bottom: 12px; }
+        .game-description { background: #FAFAF8; border-radius: 10px; padding: 14px; margin-bottom: 12px; font-size: 0.92em; line-height: 1.5; color: var(--ink-soft); }
+        .game-rules { background: #FAFAF8; border-radius: 10px; padding: 14px; margin-bottom: 16px; font-size: 0.88em; line-height: 1.5; }
+        .game-rules strong { color: var(--ink); }
+
+        .trivia-card { background: #FAFAF8; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+        .trivia-vs { text-align: center; font-size: 0.95em; margin-bottom: 10px; color: var(--ink-soft); }
+        .trivia-vs .name { color: var(--orange); font-weight: 600; }
+        .trivia-vs.you-are-playing { color: var(--ink); font-weight: 600; }
+
+        .buzzer-btn { width: 100%; padding: 20px; background: var(--orange); color: white; border: none; border-radius: 14px; font-size: 18px; font-weight: 600; font-family: 'Fredoka', sans-serif; cursor: pointer; }
+        .buzzer-btn:disabled { background: #D8D4CC; cursor: not-allowed; }
+        .buzzer-btn.pressed { background: var(--green); }
+        .buzzer-status { text-align: center; margin-top: 10px; font-size: 0.9em; font-weight: 600; }
+
+        .answer-banner { margin-top: 14px; padding: 14px; border-radius: 10px; text-align: center; font-weight: 600; }
+        .answer-banner.correct { background: var(--green-soft); color: #1a7a40; }
+
+        .impostor-info { background: #FAFAF8; border-radius: 12px; padding: 20px; text-align: center; margin: 16px 0; }
+        .impostor-word { font-family: 'Fredoka', sans-serif; font-size: 1.7em; font-weight: 700; color: var(--orange); margin: 8px 0; }
+        .impostor-hint { color: var(--ink-soft); font-style: italic; }
+        .impostor-flag { color: #c2491b; font-weight: 700; margin-bottom: 6px; }
+
+        .bracket-list { display: flex; flex-direction: column; gap: 10px; }
+        .tournament-match { background: #FAFAF8; border: 2px solid transparent; border-radius: 12px; padding: 14px; text-align: center; }
+        .tournament-match.your-match { background: var(--green-soft); border-color: var(--green); }
+        .tournament-match .round-label { font-size: 0.75em; color: var(--ink-soft); margin-bottom: 6px; }
+        .vs-text { font-family: 'Fredoka', sans-serif; font-weight: 600; color: var(--ink-soft); margin: 0 6px; }
+        .match-winner { margin-top: 6px; font-weight: 600; color: #1a7a40; font-size: 0.9em; }
+        .champion-banner { text-align: center; padding: 20px; background: var(--yellow-soft); border-radius: 12px; font-weight: 600; color: #8a6400; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--paper); z-index: 1000; padding: 18px; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+        .modal-header h2 { font-size: 1.2em; }
+        .close-btn { background: #FAFAF8; border: 1px solid var(--line); color: var(--ink); font-size: 18px; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; }
+        .leaderboard-item { background: white; border: 1px solid var(--line); padding: 13px 14px; margin: 8px 0; border-radius: 10px; display: flex; align-items: center; gap: 12px; }
+        .rank-number { font-family: 'Fredoka', sans-serif; font-weight: 700; min-width: 28px; color: var(--ink-soft); }
+        .rank-1 { color: var(--orange); } .rank-2 { color: var(--ink); } .rank-3 { color: var(--ink-soft); }
+        .leaderboard-item strong { flex: 1; font-weight: 500; }
+        .leaderboard-item .pts { font-weight: 700; color: var(--orange); }
+
+        .no-game { text-align: center; padding: 50px 20px; color: var(--ink-soft); }
+        .no-game-emoji { font-size: 3em; margin-bottom: 16px; }
+        .no-game h3 { color: var(--ink); font-weight: 500; margin-bottom: 6px; }
+
+        .conn-dot { position: fixed; bottom: 14px; right: 14px; width: 10px; height: 10px; border-radius: 50%; background: #D8D4CC; transition: background 0.3s; }
+        .conn-dot.online { background: var(--green); }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user-info">
+        <div class="avatar">🙂</div>
+        <div>
+            <div class="user-name" th:text="${user.displayName}">Jugador</div>
+            <div class="user-role">
+                <span th:if="${user.role.name() == 'ADMIN'}">Admin</span>
+                <span th:unless="${user.role.name() == 'ADMIN'}">Jugador</span>
+            </div>
+        </div>
+    </div>
+    <div class="points-badge">
+        <div class="points-number" id="pointsNumber" th:text="${user.points}">0</div>
+        <div class="points-label">puntos</div>
+    </div>
+</div>
+
+<div class="button-row">
+    <button class="action-btn primary" onclick="showLeaderboard()">Top 10</button>
+    <button class="action-btn" onclick="showGameInfo()">Juego actual</button>
+    <button class="action-btn admin" th:if="${user.role.name() == 'ADMIN'}" onclick="window.location.href='/admin'">Admin</button>
+    <button class="action-btn" onclick="window.location.href='/logout'">Salir</button>
+</div>
+
+<div class="game-area" id="gameArea"
+     th:attr="data-userid=${user.id}"
+     th:fragment="gameAreaContent">
+
+    <div th:if="${activeGame != null}">
+        <div class="game-title" th:text="${activeGame.name}">Juego</div>
+        <div class="game-description" th:text="${activeGame.description}">Descripción</div>
+        <div class="game-rules">
+            <strong>Reglas:</strong><br>
+            <span th:text="${activeGame.rules}">Reglas</span>
+        </div>
+
+        <!-- TRIVIA -->
+        <div th:if="${activeGame.type.name() == 'TRIVIA'}">
+            <div th:if="${gameState.player1Id != null}" class="trivia-card">
+                <div class="trivia-vs"
+                     th:classappend="${gameState.player1Id == user.id || gameState.player2Id == user.id} ? 'you-are-playing' : ''">
+                    <span class="name" th:text="${gameState.player1Name}">P1</span>
+                    contra
+                    <span class="name" th:text="${gameState.player2Name}">P2</span>
+                </div>
+
+                <!-- Si yo soy uno de los dos jugadores: muestro buzzer -->
+                <div th:if="${gameState.player1Id == user.id || gameState.player2Id == user.id}">
+                    <button id="buzzerButton" class="buzzer-btn"
+                            th:disabled="${gameState.phase != 'QUESTION'}"
+                            th:classappend="${gameState.buzzedById == user.id} ? 'pressed' : ''"
+                            onclick="pressBuzzer()">
+                        <span th:if="${gameState.buzzedById == user.id}">¡Presionado!</span>
+                        <span th:unless="${gameState.buzzedById == user.id}">Presiona el buzzer</span>
+                    </button>
+                    <div class="buzzer-status" id="buzzerStatus"
+                         th:if="${gameState.buzzedById != null}">
+                        <span th:if="${gameState.buzzedById == user.id}" style="color: var(--green);">Fuiste el primero</span>
+                        <span th:unless="${gameState.buzzedById == user.id}" style="color: var(--orange);"
+                              th:text="${gameState.buzzedByName} + ' presionó primero'">Otro presionó</span>
+                    </div>
+                </div>
+                <div th:unless="${gameState.player1Id == user.id || gameState.player2Id == user.id}" style="text-align:center; color: var(--ink-soft); font-size: 0.9em;">
+                    Esperando a que respondan los seleccionados...
+                </div>
+
+                <!-- Respuesta revelada -->
+                <div th:if="${gameState.answerRevealed}" class="answer-banner correct">
+                    Respuesta correcta: <span th:text="${gameState.correctAnswer}">A</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPOSTOR -->
+        <div th:if="${activeGame.type.name() == 'IMPOSTOR' && gameState != null}">
+            <div class="impostor-info">
+                <div th:if="${gameState.impostorIds != null && gameState.impostorIds.contains(user.id)}">
+                    <div class="impostor-flag">Eres el impostor</div>
+                    <div class="impostor-hint" th:text="${gameState.hint}">Pista</div>
+                </div>
+                <div th:unless="${gameState.impostorIds != null && gameState.impostorIds.contains(user.id)}">
+                    <div style="color: var(--ink-soft); font-size:0.9em;">Palabra secreta</div>
+                    <div class="impostor-word" th:text="${gameState.word}">Palabra</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JENGA: bracket completo -->
+        <div th:if="${activeGame.type.name() == 'JENGA_TOURNAMENT' && gameState != null}">
+            <div th:if="${gameState.tournamentFinished}" class="champion-banner">
+                🏆 Campeón: <span th:text="${gameState.championName}">Nombre</span>
+            </div>
+            <div class="bracket-list">
+                <div th:each="match : ${gameState.brackets}" class="tournament-match"
+                     th:classappend="${match.player1Id == user.id || match.player2Id == user.id} ? 'your-match' : ''">
+                    <div class="round-label" th:text="'Ronda ' + ${match.round}">Ronda 1</div>
+                    <span th:text="${match.player1}">Jugador 1</span>
+                    <span class="vs-text">VS</span>
+                    <span th:text="${match.player2}">Jugador 2</span>
+                    <div th:if="${match.winner != null}" class="match-winner">
+                        Ganador: <span th:text="${match.winner}">Ganador</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:unless="${activeGame != null}" class="no-game">
+        <div class="no-game-emoji">🎈</div>
+        <h3>Esperando inicio de juego</h3>
+        <p>El admin iniciará un juego pronto</p>
+    </div>
+</div>
+
+<div id="leaderboardModal" class="modal">
+    <div class="modal-header">
+        <h2>Top 10</h2>
+        <button class="close-btn" onclick="closeModal('leaderboardModal')">✕</button>
+    </div>
+    <div id="leaderboardContent"></div>
+</div>
+
+<div id="gameInfoModal" class="modal">
+    <div class="modal-header">
+        <h2>Juego actual</h2>
+        <button class="close-btn" onclick="closeModal('gameInfoModal')">✕</button>
+    </div>
+    <div id="gameInfoContent"></div>
+</div>
+
+<div class="conn-dot" id="connDot"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+    let stompClient = null;
+    let reconnectTimer = null;
+
+    function refreshGameArea() {
+        // En vez de recargar TODA la página, solo volvemos a pedir el HTML
+        // y reemplazamos el contenedor del juego. Más rápido y no pierde el scroll/estado del header.
+        fetch(window.location.pathname, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(r => r.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newArea = doc.getElementById('gameArea');
+                const newPoints = doc.getElementById('pointsNumber');
+                if (newArea) document.getElementById('gameArea').innerHTML = newArea.innerHTML;
+                if (newPoints) document.getElementById('pointsNumber').textContent = newPoints.textContent;
+            })
+            .catch(() => { /* si falla, no rompemos la UI actual */ });
+    }
+
+    function connect() {
+        const socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.debug = null;
+        stompClient.connect({}, function () {
+            document.getElementById('connDot').classList.add('online');
+            stompClient.subscribe('/topic/game', function () {
+                refreshGameArea();
+            });
+            stompClient.subscribe('/topic/leaderboard', function () {
+                // el número de puntos propio se refresca junto con el área de juego
+            });
+            if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+        }, function () {
+            document.getElementById('connDot').classList.remove('online');
+            scheduleReconnect();
+        });
+    }
+
+    function scheduleReconnect() {
+        if (reconnectTimer) return;
+        reconnectTimer = setTimeout(() => { reconnectTimer = null; connect(); }, 4000);
+    }
+
+    connect();
+
+    function showLeaderboard() {
+        fetch('/api/leaderboard')
+            .then(r => r.json())
+            .then(data => {
+                let html = '';
+                data.forEach((user, index) => {
+                    const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                    html += `
+                        <div class="leaderboard-item">
+                            <span class="rank-number ${rankClass}">${index + 1}</span>
+                            <strong>${user.name}</strong>
+                            <span class="pts">${user.points} pts</span>
+                        </div>`;
+                });
+                document.getElementById('leaderboardContent').innerHTML = html;
+                document.getElementById('leaderboardModal').style.display = 'block';
+            });
+    }
+
+    function showGameInfo() {
+        fetch('/api/state')
+            .then(r => r.json())
+            .then(data => {
+                let html;
+                if (data.gameId) {
+                    html = `
+                        <h3 style="color: var(--orange); margin-bottom:10px;">${data.gameName}</h3>
+                        <p style="margin-bottom:14px; color: var(--ink-soft);">${data.description || 'Sin descripción'}</p>
+                        <h4 style="margin-bottom:6px;">Reglas</h4>
+                        <p style="margin-bottom:14px;">${data.rules || 'Sin reglas especificadas'}</p>
+                        <div style="padding:12px; background:#FAFAF8; border-radius:10px; font-size:0.9em;">
+                            <strong>Estado:</strong> ${data.gameStatus}<br>
+                            <strong>Tipo:</strong> ${data.gameType}
+                        </div>`;
+                } else {
+                    html = '<p style="text-align:center; color: var(--ink-soft);">No hay juego activo</p>';
+                }
+                document.getElementById('gameInfoContent').innerHTML = html;
+                document.getElementById('gameInfoModal').style.display = 'block';
+            });
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function pressBuzzer() {
+        const button = document.getElementById('buzzerButton');
+        if (!button || button.disabled) return;
+        button.disabled = true;
+        fetch('/api/buzzer', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+            .then(r => r.json())
+            .then(() => refreshGameArea());
+    }
+</script>
+</body>
+</html>

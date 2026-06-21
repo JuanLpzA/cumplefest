@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Lenin House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #FF6B35; --orange-soft: #FFE4D6;
+            --green: #2ECC71; --green-soft: #DFF8E8;
+            --yellow: #FFC93C; --yellow-soft: #FFF3D6;
+            --red: #E74C3C; --red-soft: #FBE2DF;
+            --ink: #2B2B2B; --ink-soft: #6B6B6B;
+            --paper: #FEFEFB; --line: #ECE8E1;
+            --radius: 14px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; padding: 20px; }
+        h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+
+        .header { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .header h1 { font-size: 1.5em; }
+        .header .subtitle { font-size: 0.85em; color: var(--ink-soft); margin-top: 2px; }
+        .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn { padding: 9px 16px; border: 1px solid var(--line); border-radius: 10px; font-weight: 500; font-size: 0.88em; cursor: pointer; background: white; color: var(--ink); }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background: var(--orange); border-color: var(--orange); color: white; font-weight: 600; }
+        .btn-success { background: var(--green); border-color: var(--green); color: white; font-weight: 600; }
+        .btn-warning { background: var(--yellow-soft); border-color: var(--yellow); color: #8a6400; }
+        .btn-danger { background: var(--red-soft); border-color: var(--red); color: #a8281b; }
+        .btn-small { padding: 5px 10px; font-size: 0.82em; }
+        .btn-block { width: 100%; }
+
+        .alert { padding: 13px 16px; border-radius: 10px; margin-bottom: 16px; font-size: 0.92em; }
+        .alert-success { background: var(--green-soft); color: #1a7a40; }
+        .alert-error { background: var(--red-soft); color: #a8281b; }
+
+        .active-game-banner { background: white; border: 2px solid var(--green); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+        .active-game-banner h3 { font-size: 1.15em; margin-bottom: 4px; }
+        .active-game-banner .type-tag { display: inline-block; font-size: 0.75em; color: var(--ink-soft); background: #FAFAF8; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; }
+        .control-block { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+        .control-block:first-of-type { border-top: none; padding-top: 0; }
+        .control-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+        .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+        .card h3 { font-size: 1.05em; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+
+        .list-item { background: #FAFAF8; padding: 12px 14px; margin: 8px 0; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .list-item .meta { font-size: 0.78em; color: var(--ink-soft); margin-top: 3px; }
+
+        .status-badge { padding: 3px 10px; border-radius: 999px; font-size: 0.72em; font-weight: 600; margin-left: 6px; }
+        .status-PENDING { background: #ECE8E1; color: var(--ink-soft); }
+        .status-ACTIVE { background: var(--green-soft); color: #1a7a40; }
+        .status-FINISHED { background: #E3EEFA; color: #1c5d96; }
+        .status-SKIPPED { background: var(--yellow-soft); color: #8a6400; }
+
+        .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85em; color: var(--ink-soft); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
+            background: white; color: var(--ink); font-size: 0.92em; font-family: inherit;
+        }
+        .form-group textarea { resize: vertical; min-height: 60px; }
+        .form-group.checkbox { display: flex; align-items: center; gap: 8px; }
+        .form-group.checkbox label { margin-bottom: 0; }
+
+        .match-pick-card { background: #FAFAF8; border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+        .match-pick-players { text-align: center; font-weight: 500; margin-bottom: 10px; }
+        .match-pick-players .vs { color: var(--ink-soft); margin: 0 8px; font-size: 0.85em; }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(43,43,43,0.5); z-index: 1000; padding: 20px; overflow-y: auto; }
+        .modal-content { max-width: 560px; margin: 30px auto; background: white; border-radius: var(--radius); padding: 26px; }
+        .modal-content h2 { margin-bottom: 18px; font-size: 1.2em; }
+        .close-btn { float: right; background: #FAFAF8; border: 1px solid var(--line); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+
+        .danger-zone { border: 1px solid var(--red); border-radius: var(--radius); padding: 18px; background: var(--red-soft); margin-bottom: 16px; }
+        .danger-zone h3 { color: #a8281b; margin-bottom: 6px; }
+        .danger-zone p { font-size: 0.85em; color: #a8281b; margin-bottom: 12px; }
+
+        .name-edit { display: flex; gap: 6px; align-items: center; }
+        .name-edit input { padding: 5px 8px; border: 1px solid var(--line); border-radius: 7px; font-size: 0.85em; width: 120px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <h1>Panel de administración</h1>
+        <div class="subtitle">Cumple en Lenin House</div>
+    </div>
+    <div class="header-actions">
+        <button class="btn" onclick="window.location.href='/player'">Vista jugador</button>
+        <button class="btn btn-danger" onclick="window.location.href='/logout'">Cerrar sesión</button>
+    </div>
+</div>
+
+<div th:if="${msg}" class="alert alert-success" th:text="${msg}">Mensaje</div>
+<div th:if="${error}" class="alert alert-error" th:text="${error}">Error</div>
+
+<!-- ===================== JUEGO ACTIVO Y SUS CONTROLES ===================== -->
+<div th:if="${activeGame != null}" class="active-game-banner">
+    <h3 th:text="${activeGame.name}">Juego</h3>
+    <span class="type-tag" th:text="${activeGame.type.name()}">TIPO</span>
+
+    <div class="control-row">
+        <form th:action="@{/admin/game/skip/{id}(id=${activeGame.id})}" method="post">
+            <button type="submit" class="btn btn-warning">Saltar juego</button>
+        </form>
+        <form th:action="@{/admin/game/finish/{id}(id=${activeGame.id})}" method="post">
+            <button type="submit" class="btn btn-danger">Terminar juego</button>
+        </form>
+    </div>
+
+    <!-- ---- CONTROLES JENGA: emparejamientos pendientes de la ronda actual ---- -->
+    <div th:if="${activeGame.type.name() == 'JENGA_TOURNAMENT'}" class="control-block">
+        <div th:if="${gameState.tournamentFinished}">
+            <strong>Torneo terminado.</strong> Campeón: <span th:text="${gameState.championName}"></span>
+        </div>
+        <div th:unless="${gameState.tournamentFinished}">
+            <strong>Ronda <span th:text="${gameState.round}">1</span> — partidos pendientes</strong>
+            <p th:if="${#lists.isEmpty(pendingMatches)}" style="color: var(--ink-soft); font-size: 0.88em; margin-top:6px;">
+                No quedan partidos pendientes en esta ronda. Si ya se registraron todos los ganadores, la siguiente ronda se genera sola.
+            </p>
+            <div th:each="match : ${pendingMatches}" class="match-pick-card">
+                <div class="match-pick-players">
+                    <span th:text="${match.player1}">P1</span>
+                    <span class="vs">vs</span>
+                    <span th:text="${match.player2}">P2</span>
+                </div>
+                <form th:action="@{/admin/jenga/winner}" method="post" class="control-row" style="margin-top:0; justify-content:center;">
+                    <input type="hidden" name="matchId" th:value="${match.matchId}">
+                    <select name="winnerId" required style="flex:1; min-width:160px; padding:8px; border-radius:8px; border:1px solid var(--line);">
+                        <option value="" disabled selected>¿Quién ganó?</option>
+                        <option th:value="${match.player1Id}" th:text="${match.player1}">P1</option>
+                        <option th:value="${match.player2Id}" th:text="${match.player2}">P2</option>
+                    </select>
+                    <button type="submit" class="btn btn-success btn-small">Registrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- CONTROLES TRIVIA ---- -->
+    <div th:if="${activeGame.type.name() == 'TRIVIA'}" class="control-block">
+        <div th:if="${gameState.player1Name != null}" style="margin-bottom: 10px; font-size: 0.92em;">
+            Jugando ahora: <strong th:text="${gameState.player1Name}"></strong> vs <strong th:text="${gameState.player2Name}"></strong>
+        </div>
+
+        <div th:if="${gameState.phase == 'BUZZED'}" style="margin-bottom: 10px;">
+            <span th:text="${gameState.buzzedByName}">Jugador</span> presionó el buzzer primero.
+        </div>
+
+        <div class="control-row">
+            <form th:action="@{/admin/trivia/next}" method="post">
+                <button type="submit" class="btn btn-primary">Siguiente pregunta (nueva pareja al azar)</button>
+            </form>
+            <form th:action="@{/admin/trivia/reveal}" method="post" th:if="${gameState.currentQuestionId != null}">
+                <button type="submit" class="btn btn-warning">Mostrar respuesta</button>
+            </form>
+        </div>
+
+        <div th:if="${gameState.answerRevealed}" class="control-row">
+            <form th:action="@{/admin/trivia/award}" method="post" style="display:flex; gap:6px; align-items:center;">
+                <input type="hidden" name="winnerId" th:value="${gameState.player1Id}">
+                <button type="submit" class="btn btn-success btn-small" th:text="'Ganó ' + ${gameState.player1Name}">Ganó P1</button>
+            </form>
+            <form th:action="@{/admin/trivia/award}" method="post" style="display:flex; gap:6px; align-items:center;">
+                <input type="hidden" name="winnerId" th:value="${gameState.player2Id}">
+                <button type="submit" class="btn btn-success btn-small" th:text="'Ganó ' + ${gameState.player2Name}">Ganó P2</button>
+            </form>
+            <form th:action="@{/admin/trivia/award}" method="post">
+                <button type="submit" class="btn btn-small">Ninguno acertó</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ---- CONTROLES IMPOSTOR ---- -->
+    <div th:if="${activeGame.type.name() == 'IMPOSTOR'}" class="control-block">
+        <button class="btn btn-primary" onclick="document.getElementById('impostorModal').style.display='block'">
+            Configurar / iniciar ronda
+        </button>
+    </div>
+</div>
+
+<!-- ===================== ZONA DE PELIGRO: RESET ===================== -->
+<div class="danger-zone">
+    <h3>Reiniciar todo</h3>
+    <p>Pone los puntajes de todos los jugadores en 0, reinicia el estado de todos los juegos a "pendiente" y borra el historial de puntos. No elimina usuarios ni preguntas.</p>
+    <form th:action="@{/admin/reset}" method="post" onsubmit="return confirm('¿Seguro? Esto borra todos los puntajes y reinicia los juegos. No se puede deshacer.');">
+        <button type="submit" class="btn btn-danger">Reiniciar puntajes y juegos</button>
+    </form>
+</div>
+
+<div class="grid">
+    <!-- JUEGOS -->
+    <div class="card">
+        <h3>Juegos configurados</h3>
+        <div th:each="game : ${games}" class="list-item">
+            <div>
+                <strong th:text="${game.name}">Juego</strong>
+                <span class="status-badge" th:class="'status-badge status-' + ${game.status.name()}" th:text="${game.status.name()}">Estado</span>
+                <div class="meta">
+                    1°: <span th:text="${game.pointsFirst}">0</span> pts ·
+                    2°: <span th:text="${game.pointsSecond}">0</span> pts ·
+                    3°: <span th:text="${game.pointsThird}">0</span> pts
+                </div>
+            </div>
+            <div class="btn-group">
+                <form th:action="@{/admin/game/start/{id}(id=${game.id})}" method="post">
+                    <button type="submit" class="btn btn-success btn-small">Iniciar</button>
+                </form>
+                <button class="btn btn-small" onclick="editGame(this)"
+                        th:attr="data-id=${game.id},data-name=${game.name},data-desc=${game.description},data-rules=${game.rules},data-p1=${game.pointsFirst},data-p2=${game.pointsSecond},data-p3=${game.pointsThird}">
+                    Editar
+                </button>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block" style="margin-top: 12px;" onclick="document.getElementById('newGameModal').style.display='block'">
+            Nuevo juego básico
+        </button>
+    </div>
+
+    <!-- LEADERBOARD + ASIGNAR RESULTADOS BASIC -->
+    <div class="card">
+        <h3>Leaderboard</h3>
+        <div th:each="user, iterStat : ${leaderboard}" class="list-item">
+            <div><span th:text="${iterStat.index + 1} + '°'">1°</span> <strong th:text="${user.displayName}">Nombre</strong></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span th:text="${user.points} + ' pts'">0 pts</span>
+                <button class="btn btn-small" onclick="adjustPoints(this)" th:attr="data-id=${user.id},data-name=${user.displayName}">Ajustar</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);">
+            <h4 style="font-size: 0.95em; margin-bottom: 10px;">Asignar resultados (juego básico)</h4>
+            <form th:action="@{/admin/game/award}" method="post">
+                <div class="form-group">
+                    <label>Juego</label>
+                    <select name="gameId" required>
+                        <option th:each="game : ${games}" th:value="${game.id}" th:text="${game.name}">Juego</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>1er lugar</label>
+                    <select name="first">
+                        <option value="">— Nadie —</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.displayName}">Usuario</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2do lugar</label>
+                    <select name="second">
+                        <option value="">— Nadie —</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.displayName}">Usuario</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>3er lugar</label>
+                    <select name="third">
+                        <option value="">— Nadie —</option>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.displayName}">Usuario</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Asignar puestos</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="card">
+        <h3>Usuarios</h3>
+        <div th:each="user : ${users}" class="list-item">
+            <div>
+                <div class="name-edit">
+                    <span th:text="${user.displayName}" th:id="'name-' + ${user.id}">Nombre</span>
+                    <span style="font-size: 0.78em; color: var(--ink-soft);" th:text="'(' + ${user.username} + ')'">(user)</span>
+                </div>
+                <span th:if="${!user.active}" style="font-size:0.78em; color: var(--red);">Inactivo</span>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-small" onclick="renameUser(this)" th:attr="data-id=${user.id},data-name=${user.displayName}">Renombrar</button>
+                <form th:action="@{/admin/user/toggle/{id}(id=${user.id})}" method="post">
+                    <button type="submit" class="btn btn-warning btn-small" th:text="${user.active ? 'Desactivar' : 'Activar'}">Toggle</button>
+                </form>
+            </div>
+        </div>
+
+        <form th:action="@{/admin/user/new}" method="post" style="margin-top: 14px;">
+            <div class="form-group">
+                <label>Usuario (username)</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>Nombre a mostrar</label>
+                <input type="text" name="displayName" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Crear usuario</button>
+        </form>
+    </div>
+
+    <!-- TRIVIA: gestión de preguntas -->
+    <div class="card">
+        <h3>Preguntas de trivia</h3>
+        <button class="btn btn-primary btn-block" onclick="window.location.href='/admin/trivia/manage'">
+            Gestionar preguntas
+        </button>
+    </div>
+</div>
+
+<!-- MODAL: Nuevo Juego Básico -->
+<div id="newGameModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="document.getElementById('newGameModal').style.display='none'">✕</button>
+        <h2>Nuevo juego básico</h2>
+        <form th:action="@{/admin/game/new}" method="post">
+            <div class="form-group"><label>Nombre</label><input type="text" name="name" required></div>
+            <div class="form-group"><label>Descripción</label><textarea name="description" required></textarea></div>
+            <div class="form-group"><label>Reglas</label><textarea name="rules" required></textarea></div>
+            <div class="form-group"><label>Puntos 1er lugar</label><input type="number" name="pointsFirst" value="10" required></div>
+            <div class="form-group"><label>Puntos 2do lugar</label><input type="number" name="pointsSecond" value="6" required></div>
+            <div class="form-group"><label>Puntos 3er lugar</label><input type="number" name="pointsThird" value="3" required></div>
+            <div class="form-group checkbox"><input type="checkbox" name="hasMinigiftFirst" id="hg1"><label for="hg1">¿Tiene miniregalo el 1er lugar?</label></div>
+            <button type="submit" class="btn btn-success btn-block">Guardar juego</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Editar Juego -->
+<div id="editGameModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="document.getElementById('editGameModal').style.display='none'">✕</button>
+        <h2>Editar juego</h2>
+        <form id="editGameForm" method="post">
+            <div class="form-group"><label>Nombre</label><input type="text" name="name" id="editName" required></div>
+            <div class="form-group"><label>Descripción</label><textarea name="description" id="editDesc" required></textarea></div>
+            <div class="form-group"><label>Reglas</label><textarea name="rules" id="editRules" required></textarea></div>
+            <div class="form-group"><label>Puntos 1er lugar</label><input type="number" name="pointsFirst" id="editP1" required></div>
+            <div class="form-group"><label>Puntos 2do lugar</label><input type="number" name="pointsSecond" id="editP2" required></div>
+            <div class="form-group"><label>Puntos 3er lugar</label><input type="number" name="pointsThird" id="editP3" required></div>
+            <button type="submit" class="btn btn-success btn-block">Guardar cambios</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Ajustar Puntos -->
+<div id="adjustPointsModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="document.getElementById('adjustPointsModal').style.display='none'">✕</button>
+        <h2>Ajustar puntos</h2>
+        <form th:action="@{/admin/points/adjust}" method="post">
+            <input type="hidden" name="userId" id="adjustUserId">
+            <p style="margin-bottom: 14px; font-size: 0.92em;">Jugador: <strong id="adjustUserName"></strong></p>
+            <div class="form-group"><label>Cantidad (+ suma, - resta)</label><input type="number" name="delta" required></div>
+            <div class="form-group"><label>Motivo</label><input type="text" name="reason" required></div>
+            <button type="submit" class="btn btn-warning btn-block">Ajustar puntos</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Renombrar usuario -->
+<div id="renameUserModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="document.getElementById('renameUserModal').style.display='none'">✕</button>
+        <h2>Renombrar jugador</h2>
+        <form id="renameUserForm" method="post">
+            <div class="form-group">
+                <label>Nuevo nombre</label>
+                <input type="text" name="displayName" id="renameInput" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Guardar nombre</button>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: Impostor -->
+<div id="impostorModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="document.getElementById('impostorModal').style.display='none'">✕</button>
+        <h2>Configurar impostor</h2>
+        <form th:action="@{/admin/impostor/start}" method="post">
+            <div class="form-group">
+                <label>Cantidad de impostores</label>
+                <select name="impostorCount">
+                    <option value="1">1 impostor</option>
+                    <option value="2">2 impostores</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar ronda</button>
+        </form>
+        <hr style="margin: 18px 0; border: none; border-top: 1px solid var(--line);">
+        <h3 style="font-size: 0.98em; margin-bottom: 10px;">Asignar puntos a ganadores</h3>
+        <form th:action="@{/admin/impostor/award}" method="post">
+            <div th:each="user : ${users}" style="margin-bottom: 6px;">
+                <label style="display:flex; align-items:center; gap:8px; font-size:0.9em;">
+                    <input type="checkbox" name="winnerIds" th:value="${user.id}">
+                    <span th:text="${user.displayName}">Usuario</span>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success btn-block" style="margin-top:10px;">Asignar puntos</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function editGame(btn) {
+        const modal = document.getElementById('editGameModal');
+        const form = document.getElementById('editGameForm');
+        form.action = '/admin/game/edit/' + btn.getAttribute('data-id');
+        document.getElementById('editName').value = btn.getAttribute('data-name');
+        document.getElementById('editDesc').value = btn.getAttribute('data-desc');
+        document.getElementById('editRules').value = btn.getAttribute('data-rules');
+        document.getElementById('editP1').value = btn.getAttribute('data-p1');
+        document.getElementById('editP2').value = btn.getAttribute('data-p2');
+        document.getElementById('editP3').value = btn.getAttribute('data-p3');
+        modal.style.display = 'block';
+    }
+
+    function adjustPoints(btn) {
+        document.getElementById('adjustUserId').value = btn.getAttribute('data-id');
+        document.getElementById('adjustUserName').textContent = btn.getAttribute('data-name');
+        document.getElementById('adjustPointsModal').style.display = 'block';
+    }
+
+    function renameUser(btn) {
+        const id = btn.getAttribute('data-id');
+        document.getElementById('renameUserForm').action = '/admin/user/rename/' + id;
+        document.getElementById('renameInput').value = btn.getAttribute('data-name');
+        document.getElementById('renameUserModal').style.display = 'block';
+    }
+</script>
+</body>
+</html>

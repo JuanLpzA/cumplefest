@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Juego - Lenin House</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #FF6B35; --green: #2ECC71;
+            --ink: #2B2B2B; --ink-soft: #6B6B6B;
+            --paper: #FEFEFB; --line: #ECE8E1; --radius: 14px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; padding: 20px; }
+        h1 { font-family: 'Fredoka', sans-serif; font-size: 1.4em; }
+        .header { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 9px 16px; border: 1px solid var(--line); border-radius: 10px; font-weight: 500; font-size: 0.88em; cursor: pointer; background: white; color: var(--ink); }
+        .btn-success { background: var(--green); border-color: var(--green); color: white; font-weight: 600; }
+        .card { background: white; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; max-width: 560px; margin: 0 auto; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; font-size: 0.88em; color: var(--ink-soft); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px;
+            background: white; color: var(--ink); font-size: 0.95em; font-family: inherit;
+        }
+        .form-group textarea { resize: vertical; min-height: 70px; }
+        .form-group.checkbox { display: flex; align-items: center; gap: 8px; }
+        .form-group.checkbox label { margin-bottom: 0; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Editar juego</h1>
+    <button class="btn" onclick="window.location.href='/admin'">Volver</button>
+</div>
+
+<div class="card">
+    <form th:action="@{/admin/game/edit/{id}(id=${game.id})}" th:object="${game}" method="post">
+        <div class="form-group"><label>Nombre del juego</label><input type="text" th:field="*{name}" required></div>
+        <div class="form-group"><label>Descripción</label><textarea th:field="*{description}" required></textarea></div>
+        <div class="form-group"><label>Reglas</label><textarea th:field="*{rules}" required></textarea></div>
+        <div class="form-group"><label>Puntos 1er lugar</label><input type="number" th:field="*{pointsFirst}" required></div>
+        <div class="form-group"><label>Puntos 2do lugar</label><input type="number" th:field="*{pointsSecond}" required></div>
+        <div class="form-group"><label>Puntos 3er lugar</label><input type="number" th:field="*{pointsThird}" required></div>
+        <div class="form-group checkbox"><input type="checkbox" th:field="*{hasMinigiftFirst}" id="mg1"><label for="mg1">¿Miniregalo para 1er lugar?</label></div>
+        <div class="form-group checkbox"><input type="checkbox" th:field="*{hasMinigiftSecond}" id="mg2"><label for="mg2">¿Miniregalo para 2do lugar?</label></div>
+        <div class="form-group checkbox"><input type="checkbox" th:field="*{hasMinigiftThird}" id="mg3"><label for="mg3">¿Miniregalo para 3er lugar?</label></div>
+        <button type="submit" class="btn btn-success" style="width:100%; padding:13px; font-size:1em; margin-top: 6px;">Guardar cambios</button>
+    </form>
+</div>
+</body>
+</html>

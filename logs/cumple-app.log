@@ -1,0 +1,222 @@
+2026-06-21T10:36:00.413-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : Starting CumpleappApplication using Java 24.0.1 with PID 35064 (C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes started by Arrunategui in C:\Users\Arrunategui\Documents\diego\cumpleapp)
+2026-06-21T10:36:00.420-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-21T10:36:00.529-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-21T10:36:00.529-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-21T10:36:02.178-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-21T10:36:02.324-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 122 ms. Found 5 JPA repository interfaces.
+2026-06-21T10:36:03.537-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-21T10:36:03.566-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-21T10:36:03.568-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-21T10:36:03.698-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3168 ms
+2026-06-21T10:36:04.165-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-21T10:36:04.311-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-21T10:36:05.308-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-21T10:36:05.368-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-21T10:36:06.658-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2fb9e13
+2026-06-21T10:36:06.661-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-21T10:36:06.784-05:00  WARN 35064 --- [cumpleapp ] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-21T10:36:06.818-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/cumple_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima&useLegacyDatetimeCode=false]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.3
+	Default catalog/schema: cumple_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-21T10:36:08.883-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-21T10:36:09.598-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:36:09.754-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-21T10:36:10.204-05:00  WARN 35064 --- [cumpleapp ] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'adminController' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\controller\AdminController.class]: Unsatisfied dependency expressed through constructor parameter 4: Error creating bean with name 'gameStateService' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\service\GameStateService.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0: Error creating bean with name 'org.springframework.boot.websocket.autoconfigure.servlet.WebSocketMessagingAutoConfiguration$JacksonWebSocketMessageConverterConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration$JacksonJsonCustomizerConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-06-21T10:36:10.205-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:36:10.212-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-21T10:36:10.217-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-21T10:36:10.222-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-06-21T10:36:10.250-05:00  INFO 35064 --- [cumpleapp ] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-21T10:36:10.280-05:00 ERROR 35064 --- [cumpleapp ] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.jackson.serialization' to java.util.Map<tools.jackson.databind.SerializationFeature, java.lang.Boolean>:
+
+    Reason: failed to convert java.lang.String to tools.jackson.databind.SerializationFeature (caused by java.lang.IllegalArgumentException: No enum constant tools.jackson.databind.SerializationFeature.write-dates-as-timestamps)
+
+Action:
+
+Update your application's configuration. The following values are valid:
+
+    APPLY_JSON_INCLUDE_FOR_CONTAINERS
+    CLOSE_CLOSEABLE
+    EAGER_SERIALIZER_FETCH
+    FAIL_ON_EMPTY_BEANS
+    FAIL_ON_ORDER_MAP_BY_INCOMPARABLE_KEY
+    FAIL_ON_SELF_REFERENCES
+    FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS
+    FLUSH_AFTER_WRITE_VALUE
+    INDENT_OUTPUT
+    ORDER_MAP_ENTRIES_BY_KEYS
+    USE_EQUALITY_FOR_OBJECT_ID
+    WRAP_EXCEPTIONS
+    WRAP_ROOT_VALUE
+    WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS
+    WRITE_EMPTY_JSON_ARRAYS
+    WRITE_SELF_REFERENCES_AS_NULL
+    WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED
+
+2026-06-21T10:37:40.548-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : Starting CumpleappApplication using Java 24.0.1 with PID 27076 (C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes started by Arrunategui in C:\Users\Arrunategui\Documents\diego\cumpleapp)
+2026-06-21T10:37:40.554-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-21T10:37:40.666-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-21T10:37:40.667-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-21T10:37:42.548-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-21T10:37:42.746-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 167 ms. Found 5 JPA repository interfaces.
+2026-06-21T10:37:44.340-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-21T10:37:44.381-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-21T10:37:44.382-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-21T10:37:44.541-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3873 ms
+2026-06-21T10:37:44.614-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : Starting CumpleappApplication using Java 24.0.1 with PID 22716 (C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes started by Arrunategui in C:\Users\Arrunategui\Documents\diego\cumpleapp)
+2026-06-21T10:37:44.625-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] c.l.cumpleapp.CumpleappApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-06-21T10:37:44.775-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-21T10:37:44.776-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-21T10:37:45.161-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-21T10:37:45.368-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-21T10:37:46.881-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-21T10:37:46.969-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-21T10:37:47.049-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-21T10:37:47.218-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 148 ms. Found 5 JPA repository interfaces.
+2026-06-21T10:37:47.371-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b3538bb
+2026-06-21T10:37:47.375-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-21T10:37:47.499-05:00  WARN 27076 --- [cumpleapp ] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-21T10:37:47.546-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/cumple_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima&useLegacyDatetimeCode=false]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.3
+	Default catalog/schema: cumple_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-21T10:37:48.619-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-06-21T10:37:48.655-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-21T10:37:48.656-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-21T10:37:48.791-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4014 ms
+2026-06-21T10:37:49.185-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-21T10:37:49.296-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-21T10:37:50.117-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-21T10:37:50.266-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-21T10:37:50.287-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:37:50.335-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-21T10:37:50.488-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-21T10:37:50.684-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16236b6c
+2026-06-21T10:37:50.687-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-21T10:37:50.781-05:00  WARN 22716 --- [cumpleapp ] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-21T10:37:51.006-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/cumple_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima&useLegacyDatetimeCode=false]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.3
+	Default catalog/schema: cumple_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-06-21T10:37:53.123-05:00  WARN 27076 --- [cumpleapp ] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'adminController' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\controller\AdminController.class]: Unsatisfied dependency expressed through constructor parameter 4: Error creating bean with name 'gameStateService' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\service\GameStateService.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0: Error creating bean with name 'org.springframework.boot.websocket.autoconfigure.servlet.WebSocketMessagingAutoConfiguration$JacksonWebSocketMessageConverterConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration$JacksonJsonCustomizerConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-06-21T10:37:53.124-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:37:53.139-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-21T10:37:53.188-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-21T10:37:53.193-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-06-21T10:37:53.234-05:00  INFO 27076 --- [cumpleapp ] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-21T10:37:53.279-05:00 ERROR 27076 --- [cumpleapp ] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.jackson.serialization' to java.util.Map<tools.jackson.databind.SerializationFeature, java.lang.Boolean>:
+
+    Reason: failed to convert java.lang.String to tools.jackson.databind.SerializationFeature (caused by java.lang.IllegalArgumentException: No enum constant tools.jackson.databind.SerializationFeature.write-dates-as-timestamps)
+
+Action:
+
+Update your application's configuration. The following values are valid:
+
+    APPLY_JSON_INCLUDE_FOR_CONTAINERS
+    CLOSE_CLOSEABLE
+    EAGER_SERIALIZER_FETCH
+    FAIL_ON_EMPTY_BEANS
+    FAIL_ON_ORDER_MAP_BY_INCOMPARABLE_KEY
+    FAIL_ON_SELF_REFERENCES
+    FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS
+    FLUSH_AFTER_WRITE_VALUE
+    INDENT_OUTPUT
+    ORDER_MAP_ENTRIES_BY_KEYS
+    USE_EQUALITY_FOR_OBJECT_ID
+    WRAP_EXCEPTIONS
+    WRAP_ROOT_VALUE
+    WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS
+    WRITE_EMPTY_JSON_ARRAYS
+    WRITE_SELF_REFERENCES_AS_NULL
+    WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED
+
+2026-06-21T10:37:55.654-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-21T10:37:55.858-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:37:56.073-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-21T10:37:56.677-05:00  WARN 22716 --- [cumpleapp ] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'adminController' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\controller\AdminController.class]: Unsatisfied dependency expressed through constructor parameter 4: Error creating bean with name 'gameStateService' defined in file [C:\Users\Arrunategui\Documents\diego\cumpleapp\target\classes\com\leninhouseapp\cumpleapp\service\GameStateService.class]: Unsatisfied dependency expressed through constructor parameter 5: Error creating bean with name 'org.springframework.web.socket.config.annotation.DelegatingWebSocketMessageBrokerConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0: Error creating bean with name 'org.springframework.boot.websocket.autoconfigure.servlet.WebSocketMessagingAutoConfiguration$JacksonWebSocketMessageConverterConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'jacksonJsonMapper' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jacksonJsonMapper' parameter 0: Error creating bean with name 'jsonMapperBuilder' defined in class path resource [org/springframework/boot/jackson/autoconfigure/JacksonAutoConfiguration.class]: Unsatisfied dependency expressed through method 'jsonMapperBuilder' parameter 0: Error creating bean with name 'org.springframework.boot.jackson.autoconfigure.JacksonAutoConfiguration$JacksonJsonCustomizerConfiguration': Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'spring.jackson-org.springframework.boot.jackson.autoconfigure.JacksonProperties': Could not bind properties to 'JacksonProperties' : prefix=spring.jackson, ignoreInvalidFields=false, ignoreUnknownFields=true
+2026-06-21T10:37:56.678-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-21T10:37:56.689-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-21T10:37:56.703-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-21T10:37:56.713-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-06-21T10:37:56.744-05:00  INFO 22716 --- [cumpleapp ] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-21T10:37:56.785-05:00 ERROR 22716 --- [cumpleapp ] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'spring.jackson.serialization' to java.util.Map<tools.jackson.databind.SerializationFeature, java.lang.Boolean>:
+
+    Reason: failed to convert java.lang.String to tools.jackson.databind.SerializationFeature (caused by java.lang.IllegalArgumentException: No enum constant tools.jackson.databind.SerializationFeature.write-dates-as-timestamps)
+
+Action:
+
+Update your application's configuration. The following values are valid:
+
+    APPLY_JSON_INCLUDE_FOR_CONTAINERS
+    CLOSE_CLOSEABLE
+    EAGER_SERIALIZER_FETCH
+    FAIL_ON_EMPTY_BEANS
+    FAIL_ON_ORDER_MAP_BY_INCOMPARABLE_KEY
+    FAIL_ON_SELF_REFERENCES
+    FAIL_ON_UNWRAPPED_TYPE_IDENTIFIERS
+    FLUSH_AFTER_WRITE_VALUE
+    INDENT_OUTPUT
+    ORDER_MAP_ENTRIES_BY_KEYS
+    USE_EQUALITY_FOR_OBJECT_ID
+    WRAP_EXCEPTIONS
+    WRAP_ROOT_VALUE
+    WRITE_CHAR_ARRAYS_AS_JSON_ARRAYS
+    WRITE_EMPTY_JSON_ARRAYS
+    WRITE_SELF_REFERENCES_AS_NULL
+    WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED
+
